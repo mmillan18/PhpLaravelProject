@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\GeneradorController;
+use App\Http\Controllers\EmpleadoController;
 use Illuminate\Support\Facades\Route;
 
-// Ruta inicial que muestra el número aleatorio al cargar la página
-Route::get('/', [GeneradorController::class, 'generarNumero']);
+// Ruta para mostrar el formulario
+Route::get('/', [EmpleadoController::class, 'mostrarFormulario']);
 
-// Ruta para generar un nuevo número al enviar el formulario (usando método POST)
-Route::post('/generar', [GeneradorController::class, 'generarNumero']);
+// Ruta para generar el ID de empleado
+Route::post('/generar-id', [EmpleadoController::class, 'generarID']);
