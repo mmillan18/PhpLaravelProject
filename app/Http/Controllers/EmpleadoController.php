@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Empleado; // Importa el modelo Empleado
 
 class EmpleadoController extends Controller
 {
     public function mostrarFormulario()
     {
-        // Muestra el formulario inicial
         return view('empleado');
     }
 
     public function generarID(Request $request)
     {
-        // Validar la entrada
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -26,10 +25,24 @@ class EmpleadoController extends Controller
         $nombre = $request->input('nombre');
         $apellido = $request->input('apellido');
 
-        // Generar un ID aleatorio (por ejemplo, un número de 8 caracteres alfanuméricos)
+        // Generar un ID alfanumérico único de 8 caracteres
         $idEmpleado = strtoupper(substr(md5(uniqid(rand(), true)), 0, 8));
 
-        // Retornar la vista con los datos del empleado
+        // Crear un nuevo registro en la base de datos
+        $empleado = new Empleado();
+        $empleado->nombre = $nombre;
+        $empleado->apellido = $apellido;
+        $empleado->id_empleado = $idEmpleado;
+        $empleado->save();
+
         return view('empleado', compact('nombre', 'apellido', 'idEmpleado'));
+    }
+
+    public function mostrarHistorial()
+    {
+        // Obtener todos los empleados de la base de datos
+        $empleados = Empleado::all();
+
+        return view('historial', compact('empleados'));
     }
 }

@@ -10,6 +10,10 @@
         <h1 class="text-center">TechNova Solutions</h1>
         <h2 class="text-center">Generador de ID de Empleado</h2>
 
+        <div class="text-center mb-4">
+            <a href="/historial" class="btn btn-info">Ver Historial de Empleados</a>
+        </div>
+
         @if (isset($idEmpleado))
             <div class="alert alert-success text-center mt-4">
                 <h3>ID generado para {{ $nombre }} {{ $apellido }}:</h3>
